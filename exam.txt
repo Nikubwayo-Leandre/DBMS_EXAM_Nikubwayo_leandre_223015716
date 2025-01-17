@@ -1,0 +1,616 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database exam;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use exam;
+Database changed
+mysql> create table client_master;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table client_master(clientNo int(10), Name varchar(30), address varchar(30), city varchar(15), state varchar(15), bal_due varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table client_master(clientNo int(10), Name varchar(30), address varchar(30), city varchar(15), state varchar(15), bal_due varchar(20));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> insert into client_master values('14', 'kitatire', 'kigali', 'kicukiro', 'Rwanda', '3000';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> insert into client_master values('14', 'kitatire', 'kigali', 'kicukiro', 'Rwanda', '3000');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into client_master values('24', 'rwabusisi', 'kigali', 'kisoro', 'uganda', '53000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master values('44', 'Duba karasira', 'Nailobi', 'makerere', 'Kenya', '57800');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master values('54', 'Biseruka', 'north kivu', 'masisi', 'congo', '800');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master values('23', 'Ngendanzi', 'Cyibitoki', 'Bujumbura', 'Burundi', '3300');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select name from client_master where bal_due>5000;
++---------------+
+| name          |
++---------------+
+| rwabusisi     |
+| Duba karasira |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> update client_master set bal_due 5100 where clientNo='c123';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '5100 where clientNo='c123'' at line 1
+mysql> update client_master set bal_due= '5100' where clientNo='c123';
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 1
+
+mysql> select * from client_master;
++----------+---------------+------------+-----------+---------+---------+
+| clientNo | Name          | address    | city      | state   | bal_due |
++----------+---------------+------------+-----------+---------+---------+
+|       14 | kitatire      | kigali     | kicukiro  | Rwanda  | 3000    |
+|       24 | rwabusisi     | kigali     | kisoro    | uganda  | 53000   |
+|       44 | Duba karasira | Nailobi    | makerere  | Kenya   | 57800   |
+|       54 | Biseruka      | north kivu | masisi    | congo   | 800     |
+|       23 | Ngendanzi     | Cyibitoki  | Bujumbura | Burundi | 3300    |
++----------+---------------+------------+-----------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> alter table Client_master modify clientNo varchar(10);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> update client_master set bal_due= '5100' where clientNo='c123';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from client_master;
++----------+---------------+------------+-----------+---------+---------+
+| clientNo | Name          | address    | city      | state   | bal_due |
++----------+---------------+------------+-----------+---------+---------+
+| 14       | kitatire      | kigali     | kicukiro  | Rwanda  | 3000    |
+| 24       | rwabusisi     | kigali     | kisoro    | uganda  | 53000   |
+| 44       | Duba karasira | Nailobi    | makerere  | Kenya   | 57800   |
+| 54       | Biseruka      | north kivu | masisi    | congo   | 800     |
+| 23       | Ngendanzi     | Cyibitoki  | Bujumbura | Burundi | 3300    |
++----------+---------------+------------+-----------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into client_master values('c123', 'Makenzi', 'yaunde', 'cibwe', 'angola', '500');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> update client_master set bal_due= '5100' where clientNo='c123';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> alter table Client_master rename to Client12;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select bal_due as BALANCE from client12;
++---------+
+| BALANCE |
++---------+
+| 3000    |
+| 53000   |
+| 57800   |
+| 800     |
+| 3300    |
+| 5100    |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Client12;
++----------+---------------+------------+-----------+---------+---------+
+| clientNo | Name          | address    | city      | state   | bal_due |
++----------+---------------+------------+-----------+---------+---------+
+| 14       | kitatire      | kigali     | kicukiro  | Rwanda  | 3000    |
+| 24       | rwabusisi     | kigali     | kisoro    | uganda  | 53000   |
+| 44       | Duba karasira | Nailobi    | makerere  | Kenya   | 57800   |
+| 54       | Biseruka      | north kivu | masisi    | congo   | 800     |
+| 23       | Ngendanzi     | Cyibitoki  | Bujumbura | Burundi | 3300    |
+| c123     | Makenzi       | yaunde     | cibwe     | angola  | 5100    |
++----------+---------------+------------+-----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> create table departments(department_id int(4), department_name varchar(30), manager_id int(6), location_id int(10));
+Query OK, 0 rows affected, 3 warnings (0.01 Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE EXAM;
+Database changed
+mysql> insert into EMPLOYEE values('300','muhamad','james','0786577636','350');
+ERROR 1146 (42S02): Table 'exam.employee' doesn't exist
+mysql> insert into EMPLOYEES values('300','muhamad','james','0786577636','350');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEES values('400','agton','ngoga','0726577636','460');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEES values('430','Abayo','KUVA','0726577636','480');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEES values('230','Abed','Mtware','0788324536','2380');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEES values('130','Mura','Muhirwa','0781225636','780');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employees;
++-------------+------------+-----------+--------------+------------+
+| Employee_id | first_name | last_name | phone_number | manager_id |
++-------------+------------+-----------+--------------+------------+
+|         200 | shikalam   | eric      | 0786577636   |        200 |
+|         300 | muhamad    | james     | 0786577636   |        350 |
+|         400 | agton      | ngoga     | 0726577636   |        460 |
+|         430 | Abayo      | KUVA      | 0726577636   |        480 |
+|         230 | Abed       | Mtware    | 0788324536   |       2380 |
+|         130 | Mura       | Muhirwa   | 0781225636   |        780 |
++-------------+------------+-----------+--------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> desc employees;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Employee_id  | int         | YES  |     | NULL    |       |
+| first_name   | varchar(20) | YES  |     | NULL    |       |
+| last_name    | varchar(25) | YES  |     | NULL    |       |
+| phone_number | varchar(20) | YES  |     | NULL    |       |
+| manager_id   | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> alter table employees add foreign key(department_id) references departments(department_id);
+ERROR 1072 (42000): Key column 'department_id' doesn't exist in table
+mysql> alter table employees add foreign key(manager_id) references departments(manager_id);
+Query OK, 6 rows affected (0.02 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++-------------+------------+-----------+--------------+------------+
+| Employee_id | first_name | last_name | phone_number | manager_id |
++-------------+------------+-----------+--------------+------------+
+|         200 | shikalam   | eric      | 0786577636   |        200 |
+|         300 | muhamad    | james     | 0786577636   |        350 |
+|         400 | agton      | ngoga     | 0726577636   |        460 |
+|         430 | Abayo      | KUVA      | 0726577636   |        480 |
+|         230 | Abed       | Mtware    | 0788324536   |       2380 |
+|         130 | Mura       | Muhirwa   | 0781225636   |        780 |
++-------------+------------+-----------+--------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from departments;
++---------------+-----------------+------------+-------------+------+
+| department_id | department_name | manager_id | location_id | time |
++---------------+-----------------+------------+-------------+------+
+|            10 | administration  |        200 |        1700 | 2002 |
+|            20 | marketing       |        201 |        1800 | 2004 |
+|            50 | shipping        |        124 |        1500 | 1990 |
+|            60 | IT              |        103 |        1400 | 1998 |
+|            80 | sale            |        149 |        2500 | 2000 |
++---------------+-----------------+------------+-------------+------+
+5 rows in set (0.00 sec)
+
+mysql>  select employee_id, manager_id from employees right join departments on employees.manager_id=departments.departments;
+ERROR 1052 (23000): Column 'manager_id' in field list is ambiguous
+mysql>  select employee_id, manager_id from employees right join departments on employees.manager_id=departments.department_id;
+ERROR 1052 (23000): Column 'manager_id' in field list is ambiguous
+mysql>   select employee_id, manager_id from employees right join departments on employees.department_id=departments.department_id;
+ERROR 1052 (23000): Column 'manager_id' in field list is ambiguous
+mysql>  select employee_id, department_id from employees right join departments on employees.department_id=departments.department_id;
+ERROR 1054 (42S22): Unknown column 'employees.department_id' in 'on clause'
+mysql>  select employee_id, department_id from employees right join departments on employees.first_name=departments.department_id;
++-------------+---------------+
+| employee_id | department_id |
++-------------+---------------+
+|        NULL |            10 |
+|        NULL |            20 |
+|        NULL |            50 |
+|        NULL |            60 |
+|        NULL |            80 |
++-------------+---------------+
+5 rows in set, 6 warnings (0.00 sec)
+
+mysql>  select employee_id, department_id from employees left join departments on employees.first_name=departments.department_id;
++-------------+---------------+
+| employee_id | department_id |
++-------------+---------------+
+|         200 |          NULL |
+|         300 |          NULL |
+|         400 |          NULL |
+|         430 |          NULL |
+|         230 |          NULL |
+|         130 |          NULL |
++-------------+---------------+
+6 rows in set, 6 warnings (0.00 sec)
+
+mysql> create table student;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table student(studentid  int(5), fullnames varchar(25), gender varchar(5), age int(2), department varchar(20));
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql> insert into student values('120','niyibizi veda', 'M', '20', 'accounting');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('560','Kato WANDY', 'F', '30', 'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('230','bwana bao', 'M', '30', 'logistics');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('20','umuhoza kade', 'F', '20', 'nursing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('40','gakuru isaac', 'M', '100', 'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-----------+---------------+--------+------+------------+
+| studentid | fullnames     | gender | age  | department |
++-----------+---------------+--------+------+------------+
+|       120 | niyibizi veda | M      |   20 | accounting |
+|       560 | Kato WANDY    | F      |   30 | BIT        |
+|       230 | bwana bao     | M      |   30 | logistics  |
+|        20 | umuhoza kade  | F      |   20 | nursing    |
+|        40 | gakuru isaac  | M      |  100 | BIT        |
++-----------+---------------+--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * where gender='f';
+ERROR 1096 (HY000): No tables used
+mysql> select *from student where gender='F';
++-----------+--------------+--------+------+------------+
+| studentid | fullnames    | gender | age  | department |
++-----------+--------------+--------+------+------------+
+|       560 | Kato WANDY   | F      |   30 | BIT        |
+|        20 | umuhoza kade | F      |   20 | nursing    |
++-----------+--------------+--------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select *from student where gender='M';
++-----------+---------------+--------+------+------------+
+| studentid | fullnames     | gender | age  | department |
++-----------+---------------+--------+------+------------+
+|       120 | niyibizi veda | M      |   20 | accounting |
+|       230 | bwana bao     | M      |   30 | logistics  |
+|        40 | gakuru isaac  | M      |  100 | BIT        |
++-----------+---------------+--------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> delete from student where age<20;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from student where age>30;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++-----------+---------------+--------+------+------------+
+| studentid | fullnames     | gender | age  | department |
++-----------+---------------+--------+------+------------+
+|       120 | niyibizi veda | M      |   20 | accounting |
+|       560 | Kato WANDY    | F      |   30 | BIT        |
+|       230 | bwana bao     | M      |   30 | logistics  |
+|        20 | umuhoza kade  | F      |   20 | nursing    |
++-----------+---------------+--------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> create table employees(employee_id int(20), first_name varchar(20), last_name varchar(20), email varchar(30), phone_number int(10), hire_date date,job_id varchar(12), salary int(12), commission_Pct int(12), manager_id varchar(12), department_id varchar(12));
+ERROR 1050 (42S01): Table 'employees' already exists
+mysql> create table employeess(employee_id int(20), first_name varchar(20), last_name varchar(20), email varchar(30), phone_number int(10), hire_date date,job_id varchar(12), salary int(12), commission_Pct int(12), manager_id varchar(12), department_id varchar(12));
+Query OK, 0 rows affected, 4 warnings (0.01 sec)
+
+mysql> insert into employeess values('120','muhawe', 'keza', 'muhawenayo@gmail.com', '0790636258', '12/10/2023', '00123', '120000','2300','1245', '7892');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employeess values('120','rwema', 'shaffy', 'rwemashaffy@gmail.com', '0798786258', '07/10/2023', '034', '1278900','2899','1000', '1232');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employeess values('220','mura', 'nailly', 'nailly@gmail.com', '0788786258', '07/09/2023', '1244', '455900','67899','2000', '2387');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employeess values('220','Abayo', 'kevin', 'kvey@gmail.com', '0798786276', '07/09/2022', '2344', '555900','6679','100', '4387');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employeess values('679','Abe', 'isaac', abeisaac@gmail.com', '0733786276', '07/11/2022', '7494','4800','8979','800', '437');
+    '> insert into employeess values('679','Abe', 'isaac', 'abeisaac@gmail.com', '0733786276', '07/11/2022', '7494','4800','8979','800', '437');
+    '>
+
+mysql>  create table EMPLOYEES (Employee_id int(6), first_name varchar(20),last_name varchar(25),phone_number varchar(20),manager_id int(6));
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql> create table departments(department_id int(4), department_name varchar(30), manager_id int(6), location_id int(10), time varchar(12));
+ERROR 1050 (42S01): Table 'departments' already exists
+mysql> alter table departments add column time varchar(12));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> alter table departments add column time varchar(12);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into departments values('10','administration','200','1700','2002');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into department values('20','marketing','201','1800','2004');
+ERROR 1146 (42S02): Table 'exam.department' doesn't exist
+mysql> insert into departments values('20','marketing','201','1800','2004');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into departments values('50','shipping','124','1500','1990');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into departments values('60','IT','103','1400','1998');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into departments values('80','sale','149','2500','2000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Select * from departments;
++---------------+-----------------+------------+-------------+------+
+| department_id | department_name | manager_id | location_id | time |
++---------------+-----------------+------------+-------------+------+
+|            10 | administration  |        200 |        1700 | 2002 |
+|            20 | marketing       |        201 |        1800 | 2004 |
+|            50 | shipping        |        124 |        1500 | 1990 |
+|            60 | IT              |        103 |        1400 | 1998 |
+|            80 | sale            |        149 |        2500 | 2000 |
++---------------+-----------------+------------+-------------+------+
+5 rows in set (0.00 sec)
+
+mysql> insert into EMPLOYEES values('200','shikalam','eric',','0786577636','200');
+    '> insert into EMPLOYEES values('200','shikalam','eric','0786577636','200');
+    '> insert into EMPLOYEES values('200','shikalam','eric','0786577636','200');
+mysql> use exam;
+Database changed
+mysql> select * from employeess;
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+| employee_id | first_name | last_name | email                 | phone_number | hire_date  | job_id | salary  | commission_Pct | manager_id | department_id |
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+|         120 | muhawe     | keza      | muhawenayo@gmail.com  |    790636258 | 0000-00-00 | 00123  |  120000 |           2300 | 1245       | 7892          |
+|         120 | rwema      | shaffy    | rwemashaffy@gmail.com |    798786258 | 0000-00-00 | 034    | 1278900 |           2899 | 1000       | 1232          |
+|         220 | mura       | nailly    | nailly@gmail.com      |    788786258 | 0000-00-00 | 1244   |  455900 |          67899 | 2000       | 2387          |
+|         220 | Abayo      | kevin     | kvey@gmail.com        |    798786276 | 0000-00-00 | 2344   |  555900 |           6679 | 100        | 4387          |
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employeess values('679','Abe', 'isaac', 'abeisaac@gmail.com', '0733786276', '07/11/2022', '7494','4800','8979','800', '437');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employeess values('579','nuhu', 'augustin', 'nuhuaugstin@gmail.com', '0733786276', '07/11/2022', '7494','4800','8979','800', '70');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employeess values('579','obby', 'elie', 'elien@gmail.com', '0733886276', '08/11/2022', '7494','3800','8979','800', '80');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employeess values('34','shukuru', 'eric', 'shukurueric@gmail.com', '0783886289', '08/10/2022', '9494','2600','9979','900', '60');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select * from employeess;
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+| employee_id | first_name | last_name | email                 | phone_number | hire_date  | job_id | salary  | commission_Pct | manager_id | department_id |
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+|         120 | muhawe     | keza      | muhawenayo@gmail.com  |    790636258 | 0000-00-00 | 00123  |  120000 |           2300 | 1245       | 7892          |
+|         120 | rwema      | shaffy    | rwemashaffy@gmail.com |    798786258 | 0000-00-00 | 034    | 1278900 |           2899 | 1000       | 1232          |
+|         220 | mura       | nailly    | nailly@gmail.com      |    788786258 | 0000-00-00 | 1244   |  455900 |          67899 | 2000       | 2387          |
+|         220 | Abayo      | kevin     | kvey@gmail.com        |    798786276 | 0000-00-00 | 2344   |  555900 |           6679 | 100        | 4387          |
+|         679 | Abe        | isaac     | abeisaac@gmail.com    |    733786276 | 0000-00-00 | 7494   |    4800 |           8979 | 800        | 437           |
+|         579 | nuhu       | augustin  | nuhuaugstin@gmail.com |    733786276 | 0000-00-00 | 7494   |    4800 |           8979 | 800        | 70            |
+|         579 | obby       | elie      | elien@gmail.com       |    733886276 | 0000-00-00 | 7494   |    3800 |           8979 | 800        | 80            |
+|          34 | shukuru    | eric      | shukurueric@gmail.com |    783886289 | 0000-00-00 | 9494   |    2600 |           9979 | 900        | 60            |
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT Employee_Id, First_Name, Last_Name, SalaryFROM EMPLOYEESS;
+ERROR 1054 (42S22): Unknown column 'Employee_Id' in 'field list'Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use exam;
+Database changed
+mysql> select * from employees;
++-------------+------------+-----------+--------------+------------+
+| Employee_id | first_name | last_name | phone_number | manager_id |
++-------------+------------+-----------+--------------+------------+
+|         200 | shikalam   | eric      | 0786577636   |        200 |
+|         300 | muhamad    | james     | 0786577636   |        350 |
+|         400 | agton      | ngoga     | 0726577636   |        460 |
+|         430 | Abayo      | KUVA      | 0726577636   |        480 |
+|         230 | Abed       | Mtware    | 0788324536   |       2380 |
+|         130 | Mura       | Muhirwa   | 0781225636   |        780 |
++-------------+------------+-----------+--------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employeess;
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+| employee_id | first_name | last_name | email                 | phone_number | hire_date  | job_id | salary  | commission_Pct | manager_id | department_id |
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+|         120 | muhawe     | keza      | muhawenayo@gmail.com  |    790636258 | 0000-00-00 | 00123  |  120000 |           2300 | 1245       | 7892          |
+|         120 | rwema      | shaffy    | rwemashaffy@gmail.com |    798786258 | 0000-00-00 | 034    | 1278900 |           2899 | 1000       | 1232          |
+|         220 | mura       | nailly    | nailly@gmail.com      |    788786258 | 0000-00-00 | 1244   |  455900 |          67899 | 2000       | 2387          |
+|         220 | Abayo      | kevin     | kvey@gmail.com        |    798786276 | 0000-00-00 | 2344   |  555900 |           6679 | 100        | 4387          |
+|         679 | Abe        | isaac     | abeisaac@gmail.com    |    733786276 | 0000-00-00 | 7494   |    4800 |           8979 | 800        | 437           |
+|         579 | nuhu       | augustin  | nuhuaugstin@gmail.com |    733786276 | 0000-00-00 | 7494   |    4800 |           8979 | 800        | 70            |
+|         579 | obby       | elie      | elien@gmail.com       |    733886276 | 0000-00-00 | 7494   |    3800 |           8979 | 800        | 80            |
+|          34 | shukuru    | eric      | shukurueric@gmail.com |    783886289 | 0000-00-00 | 9494   |    2600 |           9979 | 900        | 60            |
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+8 rows in set (0.00 sec)
+
+mysql>  select employee_id,First_name, last_name,salary from employeess;
++-------------+------------+-----------+---------+
+| employee_id | First_name | last_name | salary  |
++-------------+------------+-----------+---------+
+|         120 | muhawe     | keza      |  120000 |
+|         120 | rwema      | shaffy    | 1278900 |
+|         220 | mura       | nailly    |  455900 |
+|         220 | Abayo      | kevin     |  555900 |
+|         679 | Abe        | isaac     |    4800 |
+|         579 | nuhu       | augustin  |    4800 |
+|         579 | obby       | elie      |    3800 |
+|          34 | shukuru    | eric      |    2600 |
++-------------+------------+-----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select *from employeess where manager_id<100;
+Empty set (0.00 sec)
+
+mysql>  select First_name, Last_name from employeess where salary>=480;
++------------+-----------+
+| First_name | Last_name |
++------------+-----------+
+| muhawe     | keza      |
+| rwema      | shaffy    |
+| mura       | nailly    |
+| Abayo      | kevin     |
+| Abe        | isaac     |
+| nuhu       | augustin  |
+| obby       | elie      |
+| shukuru    | eric      |
++------------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select First_name, Last_name from employeess where last_name='AUSTIN';
+Empty set (0.00 sec)
+
+mysql> select First_name, Last_name from employeess where last_name='augustin';
++------------+-----------+
+| First_name | Last_name |
++------------+-----------+
+| nuhu       | augustin  |
++------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> mysql> select First_name, Last_name from employeess where department_id='60' and (department_id='70' or department_id='80');Empty set (0.00 sec)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select First_name, Last_name from employeess where department_id='60' and' at line 1
+    Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use exam;
+Database changed
+mysql> select * from employeess;
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+| employee_id | first_name | last_name | email                 | phone_number | hire_date  | job_id | salary  | commission_Pct | manager_id | department_id |
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+|         120 | muhawe     | keza      | muhawenayo@gmail.com  |    790636258 | 0000-00-00 | 00123  |  120000 |           2300 | 1245       | 7892          |
+|         120 | rwema      | shaffy    | rwemashaffy@gmail.com |    798786258 | 0000-00-00 | 034    | 1278900 |           2899 | 1000       | 1232          |
+|         220 | mura       | nailly    | nailly@gmail.com      |    788786258 | 0000-00-00 | 1244   |  455900 |          67899 | 2000       | 2387          |
+|         220 | Abayo      | kevin     | kvey@gmail.com        |    798786276 | 0000-00-00 | 2344   |  555900 |           6679 | 100        | 4387          |
+|         679 | Abe        | isaac     | abeisaac@gmail.com    |    733786276 | 0000-00-00 | 7494   |    4800 |           8979 | 800        | 437           |
+|         579 | nuhu       | augustin  | nuhuaugstin@gmail.com |    733786276 | 0000-00-00 | 7494   |    4800 |           8979 | 800        | 70            |
+|         579 | obby       | elie      | elien@gmail.com       |    733886276 | 0000-00-00 | 7494   |    3800 |           8979 | 800        | 80            |
+|          34 | shukuru    | eric      | shukurueric@gmail.com |    783886289 | 0000-00-00 | 9494   |    2600 |           9979 | 900        | 60            |
++-------------+------------+-----------+-----------------------+--------------+------------+--------+---------+----------------+------------+---------------+
+8 rows in set (0.00 sec)
+
+mysql> select First_name, Last_name from employeess where department_id='60' Or (department_id='70' or department_id='80');
++------------+-----------+
+| First_name | Last_name |
++------------+-----------+
+| nuhu       | augustin  |
+| obby       | elie      |
+| shukuru    | eric      |
++------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE SALES(SALES_NO INT(29)PRIMARY KEY,SALES_NAME VARCHAR(15),BRANCH VARCHAR(29),SALES_AMOUNT INT(23),DOB VARCHAR(14));
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql>  INSERT INTO SALES VALUES(500,'CLOTHES','HUYE',12000,12-09-2021);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO SALES VALUES(600,'BEANS','NYANZA',1000,13-02-2022);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO SALES VALUES(700,'MILK','RUHANGO',2000,01-09-2011);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO SALES VALUES(800,'SHOES','MUHANGA',20000,20-10-2023);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO SALES VALUES(900,'TELEVISION','KICUKIRO',22000,10-11-2020);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM SALES;
++----------+------------+----------+--------------+-------+
+| SALES_NO | SALES_NAME | BRANCH   | SALES_AMOUNT | DOB   |
++----------+------------+----------+--------------+-------+
+|      500 | CLOTHES    | HUYE     |        12000 | -2018 |
+|      600 | BEANS      | NYANZA   |         1000 | -2011 |
+|      700 | MILK       | RUHANGO  |         2000 | -2019 |
+|      800 | SHOES      | MUHANGA  |        20000 | -2013 |
+|      900 | TELEVISION | KICUKIRO |        22000 | -2021 |
++----------+------------+----------+--------------+-------+
+5 rows in set (0.00 sec)
+
+mysql>  SELECT BRANCH, SUM(SALES_AMOUNT) AS "TOTAL SALES" FROM SALES GROUP BY BRANCH;
++----------+-------------+
+| BRANCH   | TOTAL SALES |
++----------+-------------+
+| HUYE     |       12000 |
+| NYANZA   |        1000 |
+| RUHANGO  |        2000 |
+| MUHANGA  |       20000 |
+| KICUKIRO |       22000 |
++----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT BRANCH, AVG(SALES_AMOUNT) AS "AVGSALES" FROM SALES GROUP BY BRANCH;
++----------+------------+
+| BRANCH   | AVGSALES   |
++----------+------------+
+| HUYE     | 12000.0000 |
+| NYANZA   |  1000.0000 |
+| RUHANGO  |  2000.0000 |
+| MUHANGA  | 20000.0000 |
+| KICUKIRO | 22000.0000 |
++----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select sales_name, DOB from sales order by sales_name;
++------------+-------+
+| sales_name | DOB   |
++------------+-------+
+| BEANS      | -2011 |
+| CLOTHES    | -2018 |
+| MILK       | -2019 |
+| SHOES      | -2013 |
+| TELEVISION | -2021 |
++------------+-------+
+5 rows in set (0.00 sec)
